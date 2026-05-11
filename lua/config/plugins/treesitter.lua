@@ -2,44 +2,30 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-        ensure_installed = {
-          "c",
-          "lua",
-          "vim",
-          "python",
-          "vimdoc",
-          "query",
-          "markdown",
-          "markdown_inline",
-        },
+    opts = {
+      ensure_installed = {
+        "c",
+        "lua",
+        "vim",
+        "python",
+        "vimdoc",
+        "query",
+        "markdown",
+        "markdown_inline",
+      },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter").setup(opts)
 
-        -- Automatically install missing parsers when entering buffer
-        -- Recommendation: set to false if you don't have tree-sitter CLI installed locally
-        auto_install = true,
-
-        highlight = {
-          enable = true,
-
-          disable = function(lang, buf)
-            local max_filesize = 500 * 1024 -- 500 KB
-            local ok, stats = pcall(
-              vim.loop.fs_stat,
-              vim.api.nvim_buf_get_name(buf)
-            )
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = false,
-        },
+      -- Disable treesitter for large files
+      vim.api.nvim_create_autocmd("BufReadPre", {
+        callback = function(args)
+          local max_filesize = 500 * 1024 -- 500 KB
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+          if ok and stats and stats.size > max_filesize then
+            vim.treesitter.stop(args.buf)
+          end
+        end,
       })
     end,
   },
