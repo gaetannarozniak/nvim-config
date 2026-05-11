@@ -54,7 +54,7 @@ vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
 vim.keymap.set("n", "gs", "<cmd>Telescope lsp_document_symbols<CR>")
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
 
-vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
+-- vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
 
 vim.keymap.set("n", "<leader>mi", ":MoltenInit<CR>", { silent = true, desc = "Initialize the plugin" })
 vim.keymap.set("n", "<leader>e", ":MoltenEvaluateOperator<CR>", { silent = true, desc = "run operator selection" })
