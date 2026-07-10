@@ -6,9 +6,18 @@ return {
         build = ":UpdateRemotePlugins",
         init = function()
             -- these are examples, not defaults. Please see the readme
-            -- vim.g.molten_image_provider = "image.nvim"
-            vim.g.molten_output_win_max_height = 20
+            vim.g.molten_image_provider = "image.nvim"
+            vim.g.molten_output_win_max_height = 30
         end,
+    },
+    {
+      "3rd/image.nvim",
+      opts = {
+	backend = "kitty",
+	processor = "magick_cli",   -- uses your existing `convert`, no luarocks
+	max_width_window_percentage = math.huge,
+	max_height_window_percentage = math.huge,
+      },
     },
     -- {
     --     -- see the image.nvim readme for more information about configuring this plugin

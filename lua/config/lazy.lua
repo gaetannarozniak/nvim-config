@@ -28,10 +28,10 @@ require("lazy").setup({
       "olimorris/onedarkpro.nvim",
       priority = 1000,
       config = function()
-        vim.cmd.colorscheme("onedark")
+	vim.cmd.colorscheme("onedark")
       end,
     },
     { import = "config.plugins" },
   },
+  rocks = { enabled = false },
 })
-
