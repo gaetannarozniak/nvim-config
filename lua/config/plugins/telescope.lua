@@ -21,6 +21,11 @@ return {
 
     vim.keymap.set("n", "<space>fd", require('telescope.builtin').find_files)
     vim.keymap.set("n", "<space>fh", require('telescope.builtin').help_tags)
+    vim.keymap.set("n", "<space>ff", function()
+      require("telescope.builtin").lsp_document_symbols({
+	symbols = { "function", "method" },
+      })
+    end, { desc = "Symbols: functions & methods" })
     vim.keymap.set("n", "<space>b", function()
       require("telescope.builtin").buffers({
 	sort_mru = true,
