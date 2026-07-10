@@ -24,6 +24,7 @@ vim.keymap.set("n", "<leader>pdb", "Oimport ipdb; ipdb.set_trace()<Esc>", {
   desc = "Insert pdb breakpoint above (respect indentation)",
 })
 
+vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show full diagnostic under cursor" })
 
 --[[ vim.keymap.set("n", "<space>st", function()
   vim.cmd.vnew()
