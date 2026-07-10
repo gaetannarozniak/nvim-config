@@ -17,6 +17,11 @@ return {
     config = function(_, opts)
       require("nvim-treesitter").setup(opts)
 
+      vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "python", "lua", "c", "markdown", "vim", "query" },
+	callback = function() vim.treesitter.start() end,
+      })
+
       -- Disable treesitter for large files
       vim.api.nvim_create_autocmd("BufReadPre", {
         callback = function(args)
